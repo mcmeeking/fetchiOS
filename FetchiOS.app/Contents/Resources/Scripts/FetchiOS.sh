@@ -89,6 +89,8 @@ function checkUpdate() {
                 LOGTHIS "********************************************
 
 "
+                kill -INT $$
+                
             fi
         else
             if [[ $theModel =~ "iPhone" ]]; then
