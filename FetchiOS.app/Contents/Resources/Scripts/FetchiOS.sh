@@ -55,34 +55,37 @@ function checkUpdate() {
             LOGTHIS "   [?] Found a matching file, analysing checksum..."
             currentMD5="$(MD5 "$currentFilename" | awk '{print $4}')"
             if [[ "$IPSWMD5" == "$currentMD5" ]]; then
-                LOGTHIS "   [✔] Hashes match!"
+                LOGTHIS "   [✓] Hashes match!"
                 found=$(( found + 1 ))
             else
                 LOGTHIS "   [!] Checksum mismatch!"
                 LOGTHIS "       MD5 sum expected: $IPSWMD5"
                 LOGTHIS "       MD5 sum received: $currentMD5"
                 rm -rf "$currentFilename" && osascript -e "display notification \"Removing damaged IPSW\" with title \"Cleaning $theModel\""
-                LOGTHIS "   [!] Incomplete file deleted. ($currentFilename)"
+                LOGTHIS "   [?] Incomplete file deleted. ($currentFilename)"
             fi
         elif [[ -n $currentFilename ]]; then
             LOGTHIS "   [!] Found an older file, deleting..."
             rm -rf "$currentFilename" && osascript -e "display notification \"Removing old iOS version\" with title \"Cleaning $theModel\""
-            LOGTHIS "       * Old file deleted. ($currentFilename)"
+            LOGTHIS "   [?] Old file deleted. ($currentFilename)"
         fi
     done <<< "$(ls | grep -E "${modelName}[0-9]{2}.")"
     if [[ "$found" -lt 1 ]]; then
-        LOGTHIS "[!] No matches found locally."
+        LOGTHIS " - No matches found locally. Downloading now..."
         osascript -e "display notification \"Downloading iOS $IPSWversion\" with title \"Updating $theModel\""
         curl -S --retry 2 --max-time 7200 -o "$IPSWname" "$IPSWURL" || LOGTHIS "[!!] Error downloading from $IPSWURL"
+        LOGTHIS "   [?] Checking new file..."
         currentFilename=$(ls | grep -E "${modelName}[0-9]{2}.")
         currentMD5="$(MD5 "$currentFilename" | awk '{print $4}')"
         if [[ "$IPSWMD5" != "$currentMD5" ]]; then
-            LOGTHIS "[!!] Checksum verification failed!"
+            LOGTHIS "   [!] Checksum verification failed!"
+            LOGTHIS "       MD5 sum expected: $IPSWMD5"
+            LOGTHIS "       MD5 sum received: $currentMD5"
             if [[ -n $2 ]]; then
-                LOGTHIS "Retrying..."
+                LOGTHIS "   [?] Retrying..."
                 checkUpdate "$1" "noretry" 
             else
-                LOGTHIS "Too many retries...
+                LOGTHIS "   [!] Too many retries...
 "
                 LOGTHIS "*************** FATAL ERROR ****************"
                 LOGTHIS "Failed to update local IPSW for $modelName to iOS $IPSWversion"
@@ -93,6 +96,7 @@ function checkUpdate() {
                 
             fi
         else
+            LOGTHIS "   [✓] Hashes match!"
             if [[ $theModel =~ "iPhone" ]]; then
                 ln -s "$currentFilename" "$iPhoneDir"
             elif [[ $theModel =~ "iPad" ]]; then
@@ -112,7 +116,7 @@ function checkUpdate() {
 cd "$firmwareDir" || exit 1
 
 if [[ ! -d "$DeviceDir" ]]; then
-    LOGTHIS "[!!!] No device directory found, exiting!"
+    LOGTHIS "[!] No device directory found, exiting!"
     exit 1
 fi
 
@@ -121,7 +125,7 @@ for f in "$DeviceDir"*; do
     if [[ "$model" != "" ]]; then
         checkUpdate "$model"
     else
-        LOGTHIS "[!!!] No device list found! Try reinstalling."
+        LOGTHIS "[!] No device list found! Try reinstalling."
         exit 1
     fi
 done
