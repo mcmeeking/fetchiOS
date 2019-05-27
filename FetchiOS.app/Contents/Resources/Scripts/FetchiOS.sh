@@ -11,20 +11,20 @@ LOGTHIS() {
     echo "$(date "+%a %h %d %H:%M:%S") $(hostname): $1" >> "$HOME/Library/Logs/FetchiOS.log"
 }
 
-if [[ ! -d $firmwareDir ]]; then
+if [[ ! -d "$firmwareDir" ]]; then
     osascript -e "display notification \"Building firmware directory.\""
     mkdir -p "$firmwareDir"
 fi
 
-if [[ ! -d $iPhoneDir ]]; then
+if [[ ! -d "$iPhoneDir" ]]; then
     mkdir -p "$iPhoneDir"
 fi
 
-if [[ ! -d $iPadDir ]]; then
+if [[ ! -d "$iPadDir" ]]; then
     mkdir -p "$iPadDir"
 fi
 
-if [[ ! -d $iPodDir ]]; then
+if [[ ! -d "$iPodDir" ]]; then
     mkdir -p "$iPodDir"
 fi
 
