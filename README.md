@@ -1,4 +1,6 @@
 # FetchiOS
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmcmeeking%2FfetchiOS.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmcmeeking%2FfetchiOS?ref=badge_shield)
+
 
 An app to install a launch agent for downloading Apple's iOS updates for a selection of models without user interaction.
 
@@ -41,3 +43,6 @@ Logs can be found in ```~/Library/Logs/FetchiOS.log```
 
 ### Removal
 Run the application again, and select "Remove"
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmcmeeking%2FfetchiOS.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmcmeeking%2FfetchiOS?ref=badge_large)
