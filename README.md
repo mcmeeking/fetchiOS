@@ -6,17 +6,21 @@ An app to install a launch agent for downloading Apple's iOS updates for a selec
 * iPad 4
 * iPad 5
 * iPad 6
+* iPad 7
 * iPad Air
 * iPad Air 2
 * iPad Mini 2
 * iPad Mini 3
 * iPad Mini 4
+* iPad Mini 5
 * iPad Pro (9.7-inch)
 * iPad Pro (10.5-inch)
 * iPad Pro (12.9-inch)
 * iPad Pro 2 (12.9-inch)
-* iPad Pro 3 (11-inch)
+* iPad Pro (11-inch)
 * iPad Pro 3 (12.9-inch)
+* iPad Pro 2 (11-inch)
+* iPad Pro 4 (12.9-inch)
 * iPhone 5c
 * iPhone 5s
 * iPhone 6
@@ -31,6 +35,9 @@ An app to install a launch agent for downloading Apple's iOS updates for a selec
 * iPhone XR
 * iPhone XS
 * iPhone XS Max
+* iPhone 11
+* iPhone 11 Pro
+* iPhone 11 Pro Max
 * iPod touch 6
 
 ### Usage
